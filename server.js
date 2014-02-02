@@ -16,7 +16,7 @@ var app = express();
 
 // all environments
 app.set('port', process.env.OPENSHIFT_NODEJS_PORT || 3000);
-// app.set('ip', process.env.OPENSHIFT_NODEJS_IP || "localhost");
+app.set('ip', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1");
 app.use(express.favicon());
 app.use(cors());
 app.use(express.bodyParser());
@@ -77,4 +77,6 @@ app.post('/convert/:source', function(req, res, next){
 });
 
 
-http.createServer(app).listen(app.get('ip'), app.get('port'));
+http.createServer(app).listen(app.get('port'), app.get('ip'), function(){
+  console.log('Express server listening on port ' + app.get('port'));
+});
