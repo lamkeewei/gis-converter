@@ -1,0 +1,9 @@
+cd $OPENSHIFT_TMP_DIR
+wget ftp://ftp.remotesensing.org/gdal/gdal-1.9.2.tar.gz
+tar zxf gdal-1.9.2.tar.gz
+cd gdal-1.9.2
+./configure --prefix=$OPENSHIFT_DATA_DIR --disable-static --with-geos=$OPENSHIFT_DATA_DIR/bin/geos-config
+make
+make install
+cd ..
+rm -rf ./gdal-1.9.2*
