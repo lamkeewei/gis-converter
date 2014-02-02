@@ -1,0 +1,19 @@
+{
+  "name": "gis-converter",
+  "version": "0.0.0",
+  "homepage": "https://github.com/lamkeewei/gis-converter",
+  "authors": [
+    "lamkeewei <keewei.lam.2012@sis.smu.edu.sg>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "ng-file-upload": "~1.2.6"
+  }
+}

@@ -60,6 +60,20 @@ app.post('/convert/:source', function(req, res, next){
           var targetSRS = 'crs:84';
 
           exec(buildCommand(fileName, sourceSRS, targetSRS), function(err, stdout, stderr){
+            if(err){
+              rimraf('uploads/' + fileName, function(err){
+                if(err){
+                  console.log('remove error');
+                }
+              });
+              var error = {
+                status: 'error',
+                message: 'Invalid request. Check your CRS or zip file!'
+              };
+              res.json(error);
+              return;
+            }
+
             fs.readFile('uploads/' + fileName + '/' + fileName + '.geojson', function(err, data){
               var data = JSON.parse(data);
               rimraf('uploads/' + fileName, function(err){
