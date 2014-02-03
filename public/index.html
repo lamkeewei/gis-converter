@@ -34,7 +34,7 @@
             <div class="form-group">
               <label class="control-label col-md-4">Source CRS: </label>
               <div class="col-md-8">
-                <input type="text" class="form-control" placeholder="Eg. EPSG:3414" ng-model="crs" required/>
+                <input type="text" class="form-control" id="crs" typeahead placeholder="Eg. EPSG:3414" ng-model="crs" required/>
               </div>
             </div>
 
@@ -57,43 +57,11 @@
     <script src="//code.jquery.com/jquery.js"></script>
     <!-- Bootstrap JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <script src="components/d3/d3.min.js"></script>
     <script src="components/ng-file-upload/angular-file-upload-html5-shim.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
     <script src="components/ng-file-upload/angular-file-upload.min.js"></script>
-    <script type="text/javascript">
-      var app = angular.module('myApp', ['angularFileUpload']);
-
-      app.controller('MainCtrl', ['$scope', '$upload', function($scope, $upload){
-        $scope.reply ='Hello! Choose a zipfile and a CRS to get started! :D';
-        $scope.selectedFile = [];
-
-        $scope.onFileSelect = function($files){
-          $scope.selectedFile = $files;
-        }
-
-        $scope.uploadFile = function() {
-          $files = $scope.selectedFile;
-
-          if($files.length === 0 || $scope.uploadForm.$invalid){
-            alert('Fill in all fields!');
-            return;
-          }
-
-          for (var i = 0; i < $files.length; i++) {
-            var file = $files[i];
-            $scope.upload = $upload.upload({
-              url: 'convert/' + $scope.crs, 
-              method: 'POST',
-              file: file
-            }).progress(function(evt) {
-              console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-            }).success(function(data, status, headers, config) {
-              $scope.reply = JSON.stringify(data, undefined, 2);
-              console.log(data);
-            });
-          }
-        };
-      }]);
-    </script>
+    <script src="components/bootstrap3-typeahead/bootstrap3-typeahead.min.js"></script>
+    <script src="javascripts/app.js"></script>
   </body>
 </html>
