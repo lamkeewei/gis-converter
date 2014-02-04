@@ -3,18 +3,23 @@ var app = angular.module('myApp', ['angularFileUpload']);
 app.controller('MainCtrl', ['$scope', '$upload', function($scope, $upload){
   $scope.reply ='Hello! Choose a zipfile and a CRS to get started! :D';
   $scope.selectedFile = [];
+  $scope.buttonText = 'Submit';
 
   $scope.onFileSelect = function($files){
     $scope.selectedFile = $files;
   }
 
   $scope.uploadFile = function() {
+
     $files = $scope.selectedFile;
 
     if($files.length === 0 || $scope.uploadForm.$invalid){
       alert('Fill in all fields!');
       return;
     }
+    
+    var text = $scope.buttonText;
+    $scope.buttonText = 'Loading...';
 
     for (var i = 0; i < $files.length; i++) {
       console.log($scope.crs.split(' ')[0]);
@@ -26,6 +31,7 @@ app.controller('MainCtrl', ['$scope', '$upload', function($scope, $upload){
       }).progress(function(evt) {
         console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
       }).success(function(data, status, headers, config) {
+        $scope.buttonText = text;
         $scope.reply = JSON.stringify(data, undefined, 2);
       });
     }
